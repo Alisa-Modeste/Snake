@@ -11,12 +11,25 @@
 
   Snake.prototype.move = function(){
     var added = Coord.plus(this.dir, this.segments[0]);
-    this.segments.unshift(added);
-    this.board.changeChar(this.segments.pop(), "_");
 
-    this.board.changeChar(added, "S")
+
+
+
     if (this.hitSomething(added)) {
       this.board.endGame();
+    }
+    else {
+      this.segments.unshift(added);
+      console.log("segments", $(this.segments).last());
+
+
+      var last_one = this.segments.pop()
+      console.log("this is the last one",last_one)
+      console.log("calling changeChar to put _")
+      this.board.changeChar(last_one, "_");
+
+      console.log("calling changeChar to put s")
+      this.board.changeChar(added, "S")
     }
   };
 
@@ -28,7 +41,8 @@
   // x && y 0 > && head < Game.BOARD_SIZE
     var row = headCoord.row;
     var col = headCoord.col;
-    if (row < 0 || col < 0 || row >= Game.BOARD_SIZE || col >= Game.BOARD_SIZE){
+
+    if (row < 0 || col < 0 || row > Game.BOARD_SIZE-1 || col > Game.BOARD_SIZE-1){
       return true;
     }
 
@@ -114,8 +128,14 @@
   };
 
   Board.prototype.changeChar = function (coord, symbol) {
+    console.log("I'm in changeChar")
     var row = coord.row;
     var col = coord.col;
+
+    console.log('the row',this.board[row])
+    console.log("row", row, col)
+
+
 
     this.board[row][col] = symbol
   };
@@ -139,18 +159,4 @@
   };
 
 })(this);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

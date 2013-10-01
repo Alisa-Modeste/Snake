@@ -15,11 +15,13 @@
     this.initializeHtml();
 
     this.intervalId = setInterval(function(){
-      ui.board.step();
+
       if (ui.board.gameOver) {
         clearInterval(ui.intervalId)
         alert("You died!");
       } else {
+        console.log("Making a step")
+        ui.board.step();
         ui.render();
       }
     }, 600)
@@ -64,8 +66,9 @@
 
       $(element).children().each(function (j, child) {
         $(child).removeClass();
-
-        console.log(i, j, board[i][j])
+        //
+        // console.log(i, j, board[i])
+        // console.log(board[i][j])
         switch(board[i][j]){
         case "A":
           $(child).addClass("apple");
