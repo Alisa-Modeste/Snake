@@ -6,30 +6,20 @@
   var Snake = Game.Snake = function(board) {
     this.dir = "E";
     this.board = board;
-    this.segments = [new Coord(10,10)];//head's at [0]
+    this.segments = [new Coord(10,10), new Coord(10,11), new Coord(10,12), new Coord(10,13), new Coord(10,14), new Coord(10,15)];//head's at [0]
   }
 
   Snake.prototype.move = function(){
     var added = Coord.plus(this.dir, this.segments[0]);
-
-
-
 
     if (this.hitSomething(added)) {
       this.board.endGame();
     }
     else {
       this.segments.unshift(added);
-      console.log("segments", $(this.segments).last());
 
-
-      var last_one = this.segments.pop()
-      console.log("this is the last one",last_one)
-      console.log("calling changeChar to put _")
-      this.board.changeChar(last_one, "_");
-
-      console.log("calling changeChar to put s")
-      this.board.changeChar(added, "S")
+      this.board.changeChar(this.segments.pop(), "_");
+      this.board.changeChar(added, "S");
     }
   };
 
@@ -38,7 +28,7 @@
   };
 
   Snake.prototype.hitSomething = function (headCoord){
-  // x && y 0 > && head < Game.BOARD_SIZE
+
     var row = headCoord.row;
     var col = headCoord.col;
 
@@ -89,6 +79,8 @@
     this.initializeSnake();
     this.intervalId;
     this.gameOver = false;
+    this.appleSeen = false;
+    this.apple = new Apple()
   }
 
   Board.prototype.createBoard = function () {
@@ -122,20 +114,22 @@
       var row = this.snake.segments[i].row;
       var col = this.snake.segments[i].col;
 
-      this.board[row][col] = "S"
+      //this.board[row][col] = "S"
+      this.changeChar(this.snake.segments[i], "S")
     }
 
   };
 
+  Board.prototype.putApple = function(){
+    //is there an apple already
+    //clock starts once apple is gone or the game starts
+
+  };
+
   Board.prototype.changeChar = function (coord, symbol) {
-    console.log("I'm in changeChar")
+
     var row = coord.row;
     var col = coord.col;
-
-    console.log('the row',this.board[row])
-    console.log("row", row, col)
-
-
 
     this.board[row][col] = symbol
   };
@@ -143,7 +137,9 @@
 
   Board.prototype.step = function () {
     this.snake.move();
+    if (!this.apple){
 
+    }
   };
 
   Board.prototype.run = function () {
@@ -156,6 +152,26 @@
   Board.prototype.endGame = function () {
     var game = this;
     this.gameOver = true;
+  };
+
+  var Apple = Game.Apple = function(coord) {
+    //new Coord(10,10)
+    this.coord = coord
+    // this.appleIntervalId = setTimeout(function(){
+//
+//     }, 600)
+  };
+
+  Apple.prototype.display = function(){
+    //picks a coordinate
+    //starts timer
+    console.log(ui.board.changeChar(this.coord, "A"))
+  };
+
+ // Apple.prototype.destroy = function(){
+   //removes the apple from display
+  Apple.prototype.hide = function(){
+    console.log(ui.board.changeChar(this.coord, "_"))
   };
 
 })(this);
