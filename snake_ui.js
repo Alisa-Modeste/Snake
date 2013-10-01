@@ -8,7 +8,6 @@
 
   View.prototype.start = function() {
     this.board = new Game.Board()
-//    this.board.run()
 
     var ui = this;
     this.startHandlers();

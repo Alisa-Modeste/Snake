@@ -20,7 +20,6 @@
 
       this.board.changeChar(this.segments.pop(), "_");
       this.board.changeChar(added, "S");
-      console.log("AAAAAAAAAADDDDDED",added, typeof added)
     }
   };
 
@@ -115,8 +114,6 @@
       var row = this.snake.segments[i].row;
       var col = this.snake.segments[i].col;
 
-      //this.board[row][col] = "S"
-      console.log("in initialize snake")
       this.changeChar(this.snake.segments[i], "S")
     }
 
@@ -129,9 +126,9 @@
     if (!this.appleSeen){
       var x = parseInt(Math.random() * 20);
       var y = parseInt(Math.random() * 20);
-      console.log("x,y",x,y)
+
       this.apple.updateCoord(new Coord(x,y));
-      console.log("did apple coord update", this.apple.coord, "this is", this.board)
+
       this.apple.display(this);
       this.appleSeen = true;
     }
@@ -145,7 +142,6 @@
   };
 
   Board.prototype.changeChar = function (coord, symbol) {
-    console.log("Now in changeChar", coord, this.board, "one of", this.board[6])
     var row = coord.row;
     var col = coord.col;
 
@@ -170,13 +166,9 @@
     this.gameOver = true;
   };
 
-  //var Apple = Game.Apple = function(coord) {
   var Apple = Game.Apple = function() {
     //new Coord(10,10)
     this.coord;
-    // this.appleIntervalId = setTimeout(function(){
-//
-//     }, 600)
   };
 
 
@@ -184,18 +176,14 @@
     //picks a coordinate
     //starts timer
     var that = this;
-    console.log("apple",this.coord, "see, board", board[1])
+
     setTimeout(function(){
-      console.log("in display apple")
-      console.log("AAAAAAAAAAAAAAAAAAAAapple",that.coord, typeof that.coord)
 
       board.changeChar(that.coord, "A")
     }, Math.random());
 
 
   };
-
- // Apple.prototype.destroy = function(){
 
    //removes the apple from display
   Apple.prototype.hide = function(board){
