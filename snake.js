@@ -36,7 +36,11 @@
       return true;
     }
 
+    console.log("First time through")
     this.segments.forEach(function(coord){
+      console.log("row === coord.row",row, coord.row)
+      console.log("col === coord.row",col, coord.col)
+      console.log(row === coord.row && col === coord.col)
       if (row === coord.row && col === coord.col) {
         return true;
       }
