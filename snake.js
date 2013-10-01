@@ -174,5 +174,9 @@
     console.log(ui.board.changeChar(this.coord, "_"))
   };
 
+  Apple.prototype.updateCoord = function(coord){
+    this.coord = coord;
+  };
+
 })(this);
 
